@@ -9,4 +9,4 @@
 3. clonar el archivo ```.env.template``` y renombrarlo a ```.env```
 4. cambiar las variables de entorno
 5. levantar la DB ```docker-compose up -d```
-6. levantar ```yarn start:dev``` si usa npm ```npm run start:dev```
+6. levantar ```yarn start:dev``` si usa npm ```npm run start:dev```# manage-school
