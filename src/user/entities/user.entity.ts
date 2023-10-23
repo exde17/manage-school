@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 
@@ -36,8 +38,8 @@ export class User {
 
   @Column('text', {
     nullable: false,
+    select: false,
   })
-  @IsNotEmpty()
   @MinLength(8)
   password: string;
 
@@ -46,6 +48,12 @@ export class User {
     default: true,
   })
   isActive: boolean;
+
+  @Column('text', {
+    array: true,
+    default: ['user'],
+  })
+  role: string[];
 
   @CreateDateColumn({
     type: 'timestamptz',
@@ -60,4 +68,14 @@ export class User {
     name: 'updated_at',
   })
   updatedAt: Date;
+
+  @BeforeInsert()
+  emailToLowerCase() {
+    this.email = this.email.toLowerCase().trim();
+  }
+
+  @BeforeUpdate()
+  emailToLowerCaseOnUpdate() {
+    this.emailToLowerCase();
+  }
 }

@@ -6,23 +6,72 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
+import { User } from './entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from './decorator/get-user.decorator';
+import { GetRawHeaders } from './decorator/get-rawHeaders.decorator';
+import { UseRoleGuard } from './guards/use-role/use-role.guard';
+import { RoleProtected } from './decorator/role-protected/role-protected.decorator';
+import { ValidRoles } from './interfaces';
+import { Auth } from './decorator';
+// import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('user')
+@Controller('auth')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  @Post('register')
+  async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
+  @Post('login')
+  async login(@Body() loginUserDto: LoginUserDto) {
+    return this.userService.login(loginUserDto);
+  }
+
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  @UseGuards(AuthGuard(), UseRoleGuard)
+  findAll(
+    @GetUser() user: User,
+    @GetUser('email') email: string,
+    @GetRawHeaders() rawHeaders: string[],
+    ) {
+    // console.log(user, email);
+    return {
+      user: user,
+      email: email,
+      rawHeaders: rawHeaders,
+    };
+  }
+
+  @Get('private')
+  // @SetMetadata('roles', ['admin', 'super-user'])
+  @RoleProtected()
+  @UseGuards(AuthGuard(), UseRoleGuard)
+  privateRoute(
+    @GetUser() user: User,
+  ) {
+    return {
+      ok: true,      
+      user: user,
+    };
+  }
+
+  @Get('private3')
+  @Auth()
+  privateRoute3(
+    @GetUser() user: User,
+  ) {
+    return {
+      ok: true,      
+      user: user,
+    };
   }
 
   @Get(':id')
