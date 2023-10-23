@@ -32,7 +32,7 @@ export class UserService {
           // email: user.email,
           id: user.id, 
         }),
-        // password: undefined,
+        password: undefined,
       }
     } catch (error) {
       return error;
@@ -64,6 +64,7 @@ export class UserService {
             // email: user.email,
             id: user.id,
           }),
+          password: undefined,
         }
 
     } catch (error) {
