@@ -14,7 +14,7 @@ export class ModEstudianteController {
 
   @Get()
   findAll() {
-    return this.modEstudianteService.findAll();
+    return 'fay'//this.modEstudianteService.findAll();
   }
 
   @Get(':id')
