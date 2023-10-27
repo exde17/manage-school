@@ -35,6 +35,17 @@ export class UserController {
     return this.userService.login(loginUserDto);
   }
 
+  // @Post('prueba')
+  // prueba() {
+  //   return this.userService.ram();
+  // }
+
+  @Get('prueba')
+  async ram() {
+    const result = await this.userService.ram('garcia@gmail.com', 'Ronald2023');
+    return result;
+  }
+
   @Get()
   @UseGuards(AuthGuard(), UseRoleGuard)
   findAll(
@@ -88,4 +99,6 @@ export class UserController {
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
+
+  
 }

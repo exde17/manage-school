@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import axios from 'axios';
 
 @Injectable()
 export class UserService {
@@ -80,7 +81,7 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return 'veremos'
   }
 
   findOne(id: number) {
@@ -94,4 +95,23 @@ export class UserService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
-}
+
+  async ram(email, password) {
+    try {
+      const API_URL = 'https://school-dev-6d242b4deb31.herokuapp.com/api/auth/login';
+      const response = await axios.post(API_URL, {
+        email: email,
+        password: password,
+      });
+      console.log('Usuario Conectado');
+      return response.data;
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+      throw new Error('No se pudo conectar al servidor');
+    }
+  }
+
+    
+    // return Conex;
+  }
+
