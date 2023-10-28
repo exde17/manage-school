@@ -16,11 +16,11 @@ async function bootstrap() {
   );
 
   // Configura las opciones de CORS
-  app.enableCors({
-    origin: 'http://localhost:3001', // Reemplaza con tus orígenes permitidos
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-  });
+app.enableCors({
+  origin: ['http://localhost:3000', 'http://localhost:3001'], // Reemplaza con tus orígenes permitidos
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+});
 
   await app.listen(process.env.PORT || 3000);
   logger.log(`Application is running on: ${process.env.PORT || 3000}`);
