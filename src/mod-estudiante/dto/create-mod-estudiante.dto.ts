@@ -1,1 +1,3 @@
-export class CreateModEstudianteDto {}
+export class CreateModEstudianteDto {
+    
+}

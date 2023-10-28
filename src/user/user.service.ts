@@ -96,6 +96,7 @@ export class UserService {
     return `This action removes a #${id} user`;
   }
 
+  //esto es una prueba para verificar si servia
   async ram(email, password) {
     try {
       const API_URL = 'https://school-dev-6d242b4deb31.herokuapp.com/api/auth/login';
@@ -111,7 +112,5 @@ export class UserService {
     }
   }
 
-    
-    // return Conex;
   }
 
