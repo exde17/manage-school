@@ -35,11 +35,6 @@ export class UserController {
     return this.userService.login(loginUserDto);
   }
 
-  // @Post('prueba')
-  // prueba() {
-  //   return this.userService.ram();
-  // }
-
   @Get('prueba')
   async ram() {
     const result = await this.userService.ram('garcia@gmail.com', 'Ronald2023');
