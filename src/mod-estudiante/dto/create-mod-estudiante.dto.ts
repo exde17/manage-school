@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString } from "class-validator";
+import { IsDate, IsNumber, IsString } from "class-validator";
 
 export class CreateModEstudianteDto {
     
@@ -68,7 +68,7 @@ export class CreateModEstudianteDto {
     readonly numeroDocumento: string;
 
     @ApiProperty()
-    @IsDate()
+    @IsString()
     readonly fechaNacimiento: string;
 
     @ApiProperty()

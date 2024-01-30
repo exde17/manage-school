@@ -13,8 +13,10 @@ export class ModEstudianteService {
   ){}
 
   async create(createModEstudianteDto: CreateModEstudianteDto) {
+    console.log('entro 1')
     try {
-      const estudiante = await this.modEstudianteRepository.create(createModEstudianteDto);
+      console.log('entro 2')
+      const estudiante = this.modEstudianteRepository.create(createModEstudianteDto);
 
       await this.modEstudianteRepository.save(estudiante);
 

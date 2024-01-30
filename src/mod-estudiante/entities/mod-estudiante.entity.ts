@@ -120,7 +120,7 @@ export class ModEstudiante {
     nullable: false,
     name: 'fecha_nacimiento',
   })
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
 
   @Column('text', {
     nullable: false,
