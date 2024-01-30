@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ModEstudianteService } from './mod-estudiante.service';
 import { CreateModEstudianteDto } from './dto/create-mod-estudiante.dto';
 import { UpdateModEstudianteDto } from './dto/update-mod-estudiante.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { UseRoleGuard } from 'src/user/guards/use-role/use-role.guard';
 
 @Controller('mod-estudiante')
 export class ModEstudianteController {
   constructor(private readonly modEstudianteService: ModEstudianteService) {}
 
   @Post()
-  create(@Body() createModEstudianteDto: CreateModEstudianteDto) {
+  @UseGuards(AuthGuard(), UseRoleGuard)
+  async create(@Body() createModEstudianteDto: CreateModEstudianteDto) {
     return this.modEstudianteService.create(createModEstudianteDto);
   }
 
