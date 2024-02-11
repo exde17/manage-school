@@ -16,8 +16,16 @@ export class ModEstudianteController {
   }
 
   @Get()
-  findAll() {
-    return 'fay'//this.modEstudianteService.findAll();
+  findAll() { 
+    try {
+      return this.modEstudianteService.findAll();
+       
+      
+    } catch (error) {
+      console.log(error)
+      return error
+      
+    }
   }
 
   @Get(':id')
