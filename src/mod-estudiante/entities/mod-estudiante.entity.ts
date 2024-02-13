@@ -8,7 +8,7 @@ import {
 
 @Entity({
   name: 'estudiante',
-  schema: 'estudiante',
+  // schema: 'estudiante',
 })
 export class ModEstudiante {
   @PrimaryGeneratedColumn('uuid')
