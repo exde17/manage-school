@@ -1,6 +1,7 @@
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Empresa } from "src/empresa/entities/empresa.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Persona } from "src/persona/entities/persona.entity";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("departamento")
 export class Departamento {
@@ -24,4 +25,7 @@ export class Departamento {
 
     @OneToMany(()=>Ciudad, ciudad => ciudad.departamento)
     ciudad: Ciudad[]
+
+    @OneToMany(()=>Persona, persona => persona.departamento)
+    persona: Persona[]
 }

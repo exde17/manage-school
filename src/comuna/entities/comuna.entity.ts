@@ -1,6 +1,7 @@
 import { Barrio } from "src/barrio/entities/barrio.entity";
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Empresa } from "src/empresa/entities/empresa.entity";
+import { Persona } from "src/persona/entities/persona.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('comuna')
@@ -23,4 +24,7 @@ export class Comuna {
 
     @OneToMany(()=>Barrio, barrio => barrio.comuna)
     barrio: Barrio;
+
+    @OneToMany(()=>Persona, persona => persona.comuna)
+    persona: Persona
 }

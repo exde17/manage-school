@@ -3,9 +3,12 @@ import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Comuna } from "src/comuna/entities/comuna.entity";
 import { Corregimiento } from "src/corregimiento/entities/corregimiento.entity";
 import { Departamento } from "src/departamento/entities/departamento.entity";
+import { ModeloPedagogico } from "src/modelo_pedagogico/entities/modelo_pedagogico.entity";
+import { RelacionModeloPedagogico } from "src/relacion_modelo_pedagogico/entities/relacion_modelo_pedagogico.entity";
 import { Sector } from "src/sector/entities/sector.entity";
+import { Sede } from "src/sede/entities/sede.entity";
 import { Vereda } from "src/vereda/entities/vereda.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('empresa')
 export class Empresa {
@@ -75,4 +78,13 @@ export class Empresa {
 
     @ManyToOne(()=> Barrio, (barrio) => barrio.empresa)
     barrio: Barrio;
+
+    @OneToMany(()=>Sede, (sede) => sede.empresa)
+    sede: Sede[]
+
+    @OneToMany(()=>RelacionModeloPedagogico, (relacionModeloPedagogico) => relacionModeloPedagogico.empresa)
+    relacionModeloPedagogico: RelacionModeloPedagogico[]
+
+    @OneToMany(()=>ModeloPedagogico, (modeloPedagogico) => modeloPedagogico.empresa)
+    modeloPedagogico: ModeloPedagogico[]
 }

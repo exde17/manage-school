@@ -2,6 +2,7 @@ import { Comuna } from "src/comuna/entities/comuna.entity";
 import { Corregimiento } from "src/corregimiento/entities/corregimiento.entity";
 import { Departamento } from "src/departamento/entities/departamento.entity";
 import { Empresa } from "src/empresa/entities/empresa.entity";
+import { Persona } from "src/persona/entities/persona.entity";
 import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('ciudad')
@@ -33,4 +34,7 @@ export class Ciudad {
 
     @OneToMany(()=> Corregimiento,corregimiento => corregimiento.ciudad)
     corregimiento: Corregimiento[]
+
+    @OneToMany(()=>Persona, persona => persona.ciudad)
+    persona: Persona[]
 }

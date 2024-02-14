@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { ModEstudianteModule } from './mod-estudiante/mod-estudiante.module';
+// import { ModEstudianteModule } from './mod-estudiante/mod-estudiante.module';
 import { EmpresaModule } from './empresa/empresa.module';
 import { DepartamentoModule } from './departamento/departamento.module';
 import { CiudadModule } from './ciudad/ciudad.module';
@@ -27,6 +27,10 @@ import { CategoriaFuncionarioModule } from './categoria_funcionario/categoria_fu
 import { DireccionGrupoModule } from './direccion_grupo/direccion_grupo.module';
 import { HistoricoDireccionGrupoModule } from './historico_direccion_grupo/historico_direccion_grupo.module';
 import { AcudienteModule } from './acudiente/acudiente.module';
+import { RelacionModeloPedagogicoModule } from './relacion_modelo_pedagogico/relacion_modelo_pedagogico.module';
+import { EstudianteModule } from './estudiante/estudiante.module';
+// import { AreaModule } from './no--spec/area/area.module';
+import { JornadaModule } from './jornada/jornada.module';
 
 @Module({
   imports: [
@@ -47,7 +51,7 @@ import { AcudienteModule } from './acudiente/acudiente.module';
       synchronize: true,
     }),
     UserModule,
-    ModEstudianteModule,
+    // ModEstudianteModule,
     EmpresaModule,
     DepartamentoModule,
     CiudadModule,
@@ -72,6 +76,9 @@ import { AcudienteModule } from './acudiente/acudiente.module';
     DireccionGrupoModule,
     HistoricoDireccionGrupoModule,
     AcudienteModule,
+    RelacionModeloPedagogicoModule,
+    EstudianteModule,
+    JornadaModule,
   ],
 })
 export class AppModule {}

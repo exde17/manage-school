@@ -1,5 +1,6 @@
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Empresa } from "src/empresa/entities/empresa.entity";
+import { Persona } from "src/persona/entities/persona.entity";
 import { Vereda } from "src/vereda/entities/vereda.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -23,5 +24,8 @@ export class Corregimiento {
 
     @OneToMany(()=> Vereda, vereda => vereda.corregimiento)
     vereda: Vereda[]
+
+    @OneToMany(()=>Persona, persona => persona.corregimiento)
+    persona: Persona[]
 
 }
