@@ -21,5 +21,5 @@ export class Vereda {
     corregimiento: Corregimiento
 
     @OneToMany(()=>Persona, persona => persona.vereda)
-    persona: Persona;
+    persona: Persona; 
 }

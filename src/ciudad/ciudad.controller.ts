@@ -2,18 +2,22 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CiudadService } from './ciudad.service';
 import { CreateCiudadDto } from './dto/create-ciudad.dto';
 import { UpdateCiudadDto } from './dto/update-ciudad.dto';
+import { ValidRoles } from 'src/user/interfaces';
+import { Auth } from 'src/user/decorator';
 
 @Controller('ciudad')
 export class CiudadController {
   constructor(private readonly ciudadService: CiudadService) {}
 
   @Post()
-  create(@Body() createCiudadDto: CreateCiudadDto) {
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async create(@Body() createCiudadDto: CreateCiudadDto) {
     return this.ciudadService.create(createCiudadDto);
   }
 
   @Get()
-  findAll() {
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async findAll() {
     return this.ciudadService.findAll();
   }
 

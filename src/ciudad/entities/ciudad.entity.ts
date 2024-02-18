@@ -19,7 +19,7 @@ export class Ciudad {
 
     @Column('text',{
         unique: true,
-        nullable: false
+        nullable: false 
     })
     codigo: string;
 
@@ -27,7 +27,7 @@ export class Ciudad {
     empresa: Empresa[]
 
     @ManyToOne(()=> Departamento, departamento => departamento.ciudad)
-    departamento: Departamento[]
+    departamento: Departamento | string
 
     @OneToMany(()=>Comuna, comuna => comuna.ciudad)
     comuna: Comuna[]

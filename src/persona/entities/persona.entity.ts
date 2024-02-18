@@ -6,6 +6,8 @@ import { Corregimiento } from "src/corregimiento/entities/corregimiento.entity";
 import { Departamento } from "src/departamento/entities/departamento.entity";
 import { Docente } from "src/docente/entities/docente.entity";
 import { Estudiante } from "src/estudiante/entities/estudiante.entity";
+import { DocumentTypeEnum } from "src/utils/document-type-enum";
+import { GeneroTypeEnum } from "src/utils/genero-type-enum";
 import { Vereda } from "src/vereda/entities/vereda.entity";
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -16,7 +18,7 @@ export class Persona {
     id: string;
 
     @Column('text',{
-        nullable: false
+        nullable: false 
     })
     nombre: string;
 
@@ -31,11 +33,12 @@ export class Persona {
     })
     fechaNacimiento: Date;
 
-    @Column('text',{
-        nullable: false,
+    @Column('enum',{
+        enum: DocumentTypeEnum,
+        default: DocumentTypeEnum.CedulaCiudadania,
         name: 'tipo_identificacion'
     })
-    tipoIdentificacion: string;
+    tipoIdentificacion: DocumentTypeEnum;
 
     @Column('text',{
         nullable: false,
@@ -44,10 +47,11 @@ export class Persona {
     })
     identificacion: string;
 
-    @Column('text',{
-        nullable: true
+    @Column('enum',{
+        enum: GeneroTypeEnum,
+        default: GeneroTypeEnum.Masculino,
     })
-    genero: string;
+    genero: GeneroTypeEnum;
 
     @Column('text',{
         nullable: false,
@@ -73,7 +77,7 @@ export class Persona {
     @ManyToOne(()=>Corregimiento, (corregimiento)=>corregimiento.persona)
     corregimiento: Corregimiento
 
-    @ManyToOne(()=>Vereda, (vereda) => vereda.persona)
+    @ManyToOne(()=>Vereda, (vereda) => vereda.persona) 
     vereda: Vereda
 
     @ManyToOne(()=>Comuna, (comuna) => comuna.persona)

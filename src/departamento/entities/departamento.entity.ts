@@ -9,7 +9,7 @@ export class Departamento {
     id: string;
 
     @Column('text',{
-        nullable: false,
+        nullable: false, 
         unique: true
     })
     nombre: string;

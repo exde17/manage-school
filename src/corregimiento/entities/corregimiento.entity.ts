@@ -12,7 +12,7 @@ export class Corregimiento {
 
     @Column('text',{
         unique: true,
-        nullable: false
+        nullable: false 
     })
     nombre: string;
 

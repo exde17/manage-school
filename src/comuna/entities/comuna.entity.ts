@@ -11,7 +11,7 @@ export class Comuna {
     id: string;
 
     @Column('text',{
-        unique: true,
+        unique: true, 
         nullable: false
     })
     nombre: string;

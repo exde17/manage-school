@@ -32,9 +32,12 @@ import { EstudianteModule } from './estudiante/estudiante.module';
 // import { AreaModule } from './no--spec/area/area.module';
 import { JornadaModule } from './jornada/jornada.module';
 import { CategoriaHorarioModule } from './categoria_horario/categoria_horario.module';
+import { PassportModule } from '@nestjs/passport';
+
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       ssl: process.env.STAGE === 'prod',
@@ -81,6 +84,7 @@ import { CategoriaHorarioModule } from './categoria_horario/categoria_horario.mo
     EstudianteModule,
     JornadaModule,
     CategoriaHorarioModule,
+    PassportModule
   ],
 })
 export class AppModule {}
