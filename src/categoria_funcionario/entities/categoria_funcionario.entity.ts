@@ -1,5 +1,6 @@
 import { Docente } from "src/docente/entities/docente.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Empresa } from "src/empresa/entities/empresa.entity";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('categoria_funcionario')
 export class CategoriaFuncionario {
@@ -21,4 +22,8 @@ export class CategoriaFuncionario {
 
     @OneToMany(()=>Docente, (docente)=>docente.categoriaFuncionario)
     docente: Docente[]
+
+    @OneToOne(()=>Empresa, (empresa)=>empresa.categoriaFuncionario)
+    @JoinColumn()
+    empresa: Empresa
 }

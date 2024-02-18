@@ -1,4 +1,5 @@
 import { Barrio } from "src/barrio/entities/barrio.entity";
+import { CategoriaFuncionario } from "src/categoria_funcionario/entities/categoria_funcionario.entity";
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Comuna } from "src/comuna/entities/comuna.entity";
 import { Corregimiento } from "src/corregimiento/entities/corregimiento.entity";
@@ -8,7 +9,7 @@ import { RelacionModeloPedagogico } from "src/relacion_modelo_pedagogico/entitie
 import { Sector } from "src/sector/entities/sector.entity";
 import { Sede } from "src/sede/entities/sede.entity";
 import { Vereda } from "src/vereda/entities/vereda.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('empresa')
 export class Empresa {
@@ -87,4 +88,7 @@ export class Empresa {
 
     @OneToMany(()=>ModeloPedagogico, (modeloPedagogico) => modeloPedagogico.empresa)
     modeloPedagogico: ModeloPedagogico[]
+
+    @OneToOne(()=>CategoriaFuncionario, (categoriaFuncionario) => categoriaFuncionario.empresa)
+    categoriaFuncionario: CategoriaFuncionario
 }

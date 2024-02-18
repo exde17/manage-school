@@ -31,6 +31,7 @@ import { RelacionModeloPedagogicoModule } from './relacion_modelo_pedagogico/rel
 import { EstudianteModule } from './estudiante/estudiante.module';
 // import { AreaModule } from './no--spec/area/area.module';
 import { JornadaModule } from './jornada/jornada.module';
+import { CategoriaHorarioModule } from './categoria_horario/categoria_horario.module';
 
 @Module({
   imports: [
@@ -79,6 +80,7 @@ import { JornadaModule } from './jornada/jornada.module';
     RelacionModeloPedagogicoModule,
     EstudianteModule,
     JornadaModule,
+    CategoriaHorarioModule,
   ],
 })
 export class AppModule {}
