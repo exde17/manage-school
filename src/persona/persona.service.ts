@@ -1,11 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Persona } from './entities/persona.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PersonaService {
-  create(createPersonaDto: CreatePersonaDto) {
-    return 'This action adds a new persona';
+  constructor(
+    @InjectRepository(Persona)
+    private readonly personaRepository: Repository<Persona>,
+  ) {}
+  async create(createPersonaDto: CreatePersonaDto) {
+    try {
+      const persona = this.personaRepository.create(createPersonaDto);
+
+      await this.personaRepository.save(persona);
+      return {
+        message: 'Persona creada correctamente',
+        persona,
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al crear persona',
+        error,
+      }
+    }
   }
 
   findAll() {
