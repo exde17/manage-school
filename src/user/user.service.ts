@@ -60,6 +60,7 @@ export class UserService {
         }
 
         return {
+          data: true,
           ...user,
           token: this.getJwtToken({ 
             // email: user.email,
@@ -70,7 +71,10 @@ export class UserService {
 
     } catch (error) {
 
-      return error;
+      return{
+        data: false,
+        error: error.message,
+      }
       
     }
   }
