@@ -44,15 +44,54 @@ export class DepartamentoService {
     }
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} departamento`;
+  async findOne(id: string) {
+    try {
+      return await this.departamentoRepository.findOne({
+        where: {
+          id,
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al obtener el departamento',
+        error
+      }
+    }
   }
 
-  update(id: string, updateDepartamentoDto: UpdateDepartamentoDto) {
-    return `This action updates a #${id} departamento`;
+  async update(id: string, updateDepartamentoDto: UpdateDepartamentoDto) {
+    try {
+      const departamento = await this.departamentoRepository.findOne({
+        where: {
+          id,
+        }
+      });
+
+      if(!departamento) return {
+        message: 'Departamento no encontrado',
+      }
+
+      this.departamentoRepository.merge(departamento, updateDepartamentoDto);
+    } catch (error) {
+      
+    }
   }
 
   remove(id: string) {
-    return `This action removes a #${id} departamento`;
+    try {
+      const departamento = this.departamentoRepository.delete(id);
+      return {
+        message: 'Departamento eliminado con exito',
+        data: departamento
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al eliminar el departamento',
+        error
+      }
+      
+    }
   }
 }

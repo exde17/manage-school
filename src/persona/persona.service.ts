@@ -29,19 +29,61 @@ export class PersonaService {
     }
   }
 
-  findAll() {
-    return `This action returns all persona`;
+  async findAll() {
+    try {
+      return await this.personaRepository.find();
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al obtener personas',
+        error,
+      }
+      
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} persona`;
+  async findOne(id: string) {
+    return await this.personaRepository.findOne({
+      where: {
+        id,
+      }
+    });
   }
 
-  update(id: number, updatePersonaDto: UpdatePersonaDto) {
-    return `This action updates a #${id} persona`;
+  async update(id: string, updatePersonaDto: UpdatePersonaDto) {
+    try {
+      const persona = await this.personaRepository.findOne({
+        where: {
+          id,
+        }
+      });
+
+      if (!persona) {
+        return {
+          message: 'Persona no encontrada',
+        }
+      }
+
+      await this.personaRepository.update(id, updatePersonaDto);
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al actualizar persona',
+        error,
+      }
+      
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} persona`;
+  remove(id: string) {
+    try {
+      return this.personaRepository.delete(id);
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al eliminar persona',
+        error,
+      }
+    }
   }
 }

@@ -36,6 +36,7 @@ export class UserService {
         password: undefined,
       }
     } catch (error) {
+      console.log(error);
       return error;
     }
   }

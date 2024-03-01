@@ -43,15 +43,62 @@ export class CiudadService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ciudad`;
+  findOne(id: string) {
+    try {
+      const result = this.ciudadRepository.findOne({
+        where: {
+          id
+        }});
+        if(!result) return {
+          message: 'No se encontro la ciudad'
+        }
+        return result;
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al obtener la ciudad',
+        error: error
+      }
+    }
   }
 
-  update(id: number, updateCiudadDto: UpdateCiudadDto) {
-    return `This action updates a #${id} ciudad`;
+  update(id: string, updateCiudadDto: UpdateCiudadDto) {
+    try {
+      const result = this.ciudadRepository.findOne({
+        where: {
+          id
+        }
+      });
+      if(!result) return {
+        message: 'No se encontro la ciudad'
+      }
+      this.ciudadRepository.update(id, updateCiudadDto);
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al actualizar la ciudad',
+        error: error
+      }
+      
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ciudad`;
+  remove(id: string) {
+    try {
+      const ciudad = this.ciudadRepository.delete(id);
+      if(!ciudad) return {
+        message: 'No se encontro la ciudad'
+      }
+      return {
+        message: 'Ciudad eliminada exitosamente'
+      }
+    } catch (error) {
+      console.log(error);
+      return {
+        message: 'Error al eliminar la ciudad',
+        error: error
+      }
+      
+    }
   }
 }
