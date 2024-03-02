@@ -43,17 +43,17 @@ export class CreatePersonaDto {
 
     @IsString()
     @Optional()
-    barrio: Barrio;
+    barrio?: Barrio;
 
     @IsString()
     @Optional()
-    corregimiento: Corregimiento;
+    corregimiento?: Corregimiento;
 
     @IsString()
     @Optional()
-    vereda: Vereda;
+    vereda?: Vereda;
 
     @IsString()
     @Optional()
-    comuna: Comuna;
+    comuna?: Comuna;
 }
