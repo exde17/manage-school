@@ -71,16 +71,16 @@ export class Persona {
     @ManyToOne(()=> Ciudad, (ciudad)=>ciudad.persona)
     ciudad: Ciudad
 
-    @ManyToOne(()=>Barrio, (barrio)=>barrio.persona)
+    @ManyToOne(()=>Barrio, (barrio)=>barrio.persona, {nullable: true})
     barrio: Barrio
 
-    @ManyToOne(()=>Corregimiento, (corregimiento)=>corregimiento.persona)
+    @ManyToOne(()=>Corregimiento, (corregimiento)=>corregimiento.persona, {nullable: true})
     corregimiento: Corregimiento
 
-    @ManyToOne(()=>Vereda, (vereda) => vereda.persona) 
+    @ManyToOne(()=>Vereda, (vereda) => vereda.persona, {nullable: true}) 
     vereda: Vereda
 
-    @ManyToOne(()=>Comuna, (comuna) => comuna.persona)
+    @ManyToOne(()=>Comuna, (comuna) => comuna.persona, {nullable: true})
     comuna: Comuna
 
     @OneToOne(()=>Estudiante, (estudiante) => estudiante.persona)
