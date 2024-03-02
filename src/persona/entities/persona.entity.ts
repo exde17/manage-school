@@ -27,11 +27,16 @@ export class Persona {
     })
     apellido: string;
 
-    @Column('date',{
-        nullable: false
+    // @Column('date',{
+    //     nullable: false
+        
+    // })
+    // fechaNacimiento: Date;
+    @Column('text',{
+        nullable: true
         
     })
-    fechaNacimiento: Date;
+    fechaNacimiento: string;
 
     @Column('enum',{
         enum: DocumentTypeEnum,

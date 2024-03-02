@@ -17,8 +17,10 @@ export class CreatePersonaDto {
     @IsString()
     apellido: string;
 
-    @IsDate()
-    fechaNacimiento: Date;
+    // @IsDate()
+    // fechaNacimiento: Date;
+    @IsString()
+    fechaNacimiento: string;
 
     @IsEnum(DocumentTypeEnum)
     tipoIdentificacion: DocumentTypeEnum;
