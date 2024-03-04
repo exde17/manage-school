@@ -1,3 +1,4 @@
+import { Optional } from "@nestjs/common";
 import { IsDate, IsEnum, IsString } from "class-validator";
 import { Barrio } from "src/barrio/entities/barrio.entity";
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
@@ -16,8 +17,10 @@ export class CreatePersonaDto {
     @IsString()
     apellido: string;
 
-    @IsDate()
-    fechaNacimiento: Date;
+    // @IsDate()
+    // fechaNacimiento: Date;
+    @IsString()
+    fechaNacimiento: string;
 
     @IsEnum(DocumentTypeEnum)
     tipoIdentificacion: DocumentTypeEnum;
@@ -40,15 +43,19 @@ export class CreatePersonaDto {
     @IsString()
     ciudad: Ciudad;
 
-    @IsString()
-    barrio: Barrio;
+    // @IsString()
+    @Optional()
+    barrio?: Barrio;
 
-    @IsString()
-    corregimiento: Corregimiento;
+    // @IsString()
+    @Optional()
+    corregimiento?: Corregimiento;
 
-    @IsString()
-    vereda: Vereda;
+    // @IsString()
+    @Optional()
+    vereda?: Vereda;
 
-    @IsString()
-    comuna: Comuna;
+    // @IsString()
+    @Optional()
+    comuna?: Comuna;
 }
