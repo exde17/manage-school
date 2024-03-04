@@ -8,6 +8,7 @@ export class CorregimientoController {
   constructor(private readonly corregimientoService: CorregimientoService) {}
 
   @Post()
+  
   create(@Body() createCorregimientoDto: CreateCorregimientoDto) {
     return this.corregimientoService.create(createCorregimientoDto);
   }
