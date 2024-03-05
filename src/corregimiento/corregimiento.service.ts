@@ -1,26 +1,85 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCorregimientoDto } from './dto/create-corregimiento.dto';
 import { UpdateCorregimientoDto } from './dto/update-corregimiento.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Corregimiento } from './entities/corregimiento.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CorregimientoService {
-  create(createCorregimientoDto: CreateCorregimientoDto) {
-    return 'This action adds a new corregimiento';
+  constructor(
+    @InjectRepository(Corregimiento)
+    private corregimientoRepository: Repository<Corregimiento>,
+  ) {}
+ async create(createCorregimientoDto: CreateCorregimientoDto) {
+    try {
+      const corregimiento = this.corregimientoRepository.create(createCorregimientoDto);
+      await this.corregimientoRepository.save(corregimiento);
+      return{
+        message: 'corregimiento created successfully'
+      }
+    } catch (error) {
+      return{
+        message: 'error creating corregimiento'
+      } 
+    }
   }
 
   findAll() {
-    return `This action returns all corregimiento`;
+    try {
+      return this.corregimientoRepository.find();
+    } catch (error) {
+      return{
+        message: 'error getting corregimientos'
+      }
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} corregimiento`;
+  findOne(id: string) {
+    try {
+      return this.corregimientoRepository.findOne({
+        where: {
+          id
+        }
+      });
+    } catch (error) {
+      return{
+        message: 'error getting corregimiento'
+      }
+    }
   }
 
-  update(id: number, updateCorregimientoDto: UpdateCorregimientoDto) {
-    return `This action updates a #${id} corregimiento`;
+  async update(id: string, updateCorregimientoDto: UpdateCorregimientoDto) {
+    try {
+      const corregimiento = await this.corregimientoRepository.findOne({
+        where: {
+          id
+        }
+      });
+
+      this.corregimientoRepository.update(id, updateCorregimientoDto);
+      return{
+        message: 'corregimiento updated successfully'
+      }
+
+    } catch (error) {
+      return{
+        message: 'error updating corregimiento'
+      }
+      
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} corregimiento`;
+  remove(id: string) {
+    try {
+      this.corregimientoRepository.delete(id);
+      return{
+        message: 'corregimiento deleted successfully'
+      }
+    } catch (error) {
+      return{
+        message: 'error deleting corregimiento'
+      }
+    }
   }
 }
