@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { EstudianteService } from './estudiante.service';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
+import { Auth } from 'src/user/decorator';
+import { ValidRoles } from 'src/user/interfaces';
 
 @Controller('estudiante')
 export class EstudianteController {
   constructor(private readonly estudianteService: EstudianteService) {}
 
   @Post()
-  create(@Body() createEstudianteDto: CreateEstudianteDto) {
+  @Auth(ValidRoles.admin, ValidRoles.superUser)
+  async create(@Body() createEstudianteDto: CreateEstudianteDto) {
     return this.estudianteService.create(createEstudianteDto);
   }
 
   @Get()
-  findAll() {
+  @Auth(ValidRoles.admin, ValidRoles.superUser)
+  async findAll() {
     return this.estudianteService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.estudianteService.findOne(+id);
+  @Auth(ValidRoles.admin, ValidRoles.superUser)
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.estudianteService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstudianteDto: UpdateEstudianteDto) {
-    return this.estudianteService.update(+id, updateEstudianteDto);
+  @Auth(ValidRoles.admin, ValidRoles.superUser)
+  async update(@Param('id',ParseUUIDPipe) id: string, @Body() updateEstudianteDto: UpdateEstudianteDto) {
+    return this.estudianteService.update(id, updateEstudianteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.estudianteService.remove(+id);
+  @Auth(ValidRoles.admin, ValidRoles.superUser)
+  async remove(@Param('id',ParseUUIDPipe) id: string) {
+    return this.estudianteService.remove(id);
   }
 }

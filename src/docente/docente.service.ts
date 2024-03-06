@@ -1,26 +1,90 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDocenteDto } from './dto/create-docente.dto';
 import { UpdateDocenteDto } from './dto/update-docente.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Docente } from './entities/docente.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DocenteService {
-  create(createDocenteDto: CreateDocenteDto) {
-    return 'This action adds a new docente';
+  constructor(
+    @InjectRepository(Docente)
+    private readonly docenteRepository: Repository<Docente>,
+  ) {}
+  async create(createDocenteDto: CreateDocenteDto) {
+    try {
+      const docente = this.docenteRepository.create(createDocenteDto);
+      await this.docenteRepository.save(docente);
+      return{
+        message: 'Docente creado correctamente',
+        docente
+      }
+    } catch (error) {
+      return{
+        message: 'Error al crear el docente',
+        error
+      }
+      
+    }
   }
 
-  findAll() {
-    return `This action returns all docente`;
+  async findAll() {
+    try {
+      return await this.docenteRepository.find();
+    } catch (error) {
+      return{
+        message: 'Error al obtener los docentes',
+        error
+      }
+      
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} docente`;
+  async findOne(id: string) {
+    try {
+      return await this.docenteRepository.findOne({
+        where: {id}
+      });
+    } catch (error) {
+      return{
+        message: 'Error al obtener el docente',
+        error
+      }
+      
+    };
   }
 
-  update(id: number, updateDocenteDto: UpdateDocenteDto) {
-    return `This action updates a #${id} docente`;
+  async update(id: string, updateDocenteDto: UpdateDocenteDto) {
+    try {
+      const docente = await this.docenteRepository.findOne({
+        where: {id}
+      })
+      if(docente){
+        await this.docenteRepository.update(id,updateDocenteDto);
+        return{
+          message: 'Docente actualizado correctamente',
+          docente
+        }
+      }
+    } catch (error) {
+      return{
+        message: 'Error al actualizar el docente',
+        error
+      }
+      
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} docente`;
+  async remove(id: string) {
+    try {
+      return await this.docenteRepository.delete(id);
+    } catch (error) {
+      return{
+        message: 'Error al eliminar el docente',
+        error
+      }
+      
+    }
+    
   }
 }

@@ -1,26 +1,97 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateBarrioDto } from './dto/create-barrio.dto';
 import { UpdateBarrioDto } from './dto/update-barrio.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Barrio } from './entities/barrio.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BarrioService {
-  create(createBarrioDto: CreateBarrioDto) {
-    return 'This action adds a new barrio';
+  constructor(
+    @InjectRepository(Barrio)
+    private readonly barrioRepository: Repository<Barrio>,
+  ) {}
+  async create(createBarrioDto: CreateBarrioDto) {
+    try {
+      const barrio = this.barrioRepository.create(createBarrioDto);
+      await this.barrioRepository.save(barrio);
+      return{
+        message: 'Barrio creado correctamente',
+        barrio
+      }
+    } catch (error) {
+      return{
+        message: 'Error al crear el barrio',
+        error
+      }
+      
+    }
   }
 
-  findAll() {
-    return `This action returns all barrio`;
+  async findAll() {
+    try {
+      return await this.barrioRepository.find();
+    } catch (error) {
+      return{
+        message: 'Error al obtener los barrios',
+        error
+      }
+      
+    }
+    
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} barrio`;
+  async findOne(id: string) {
+    try {
+      return await this.barrioRepository.findOne({
+        where: {id}
+      });
+    } catch (error) {
+      return{
+        message: 'Error al obtener el barrio',
+        error
+      }
+      
+    }
   }
 
-  update(id: number, updateBarrioDto: UpdateBarrioDto) {
-    return `This action updates a #${id} barrio`;
+  async update(id: string, updateBarrioDto: UpdateBarrioDto) {
+    try {
+      const barrio = await this.barrioRepository.findOne({
+        where: {id}
+      });
+
+      if(barrio){
+        await this.barrioRepository.update(id, updateBarrioDto);
+        return{
+          message: 'Barrio actualizado correctamente',
+          barrio
+        }
+      }
+      else{
+        return{
+          message: 'No existe el barrio'
+        }
+      
+      }
+    } catch (error) {
+      return{
+        message: 'Error al actualizar el barrio',
+        error
+      
+    }
+  } 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} barrio`;
+  async remove(id: string) {
+    try {
+      return await this.barrioRepository.delete(id);
+    } catch (error) {
+      return{
+        message: 'Error al eliminar el barrio',
+        error
+      }
+      
+    }
   }
 }
