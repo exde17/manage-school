@@ -65,6 +65,9 @@ export class PersonaService {
       }
 
       await this.personaRepository.update(id, updatePersonaDto);
+      return {
+        message: 'Persona actualizada correctamente',
+      }
     } catch (error) {
       console.log(error);
       return {
