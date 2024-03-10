@@ -4,10 +4,11 @@ import { GrupoController } from './grupo.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Grupo } from './entities/grupo.entity';
 import { Horario } from 'src/horario/entities/horario.entity';
+import { Estudiante } from 'src/estudiante/entities/estudiante.entity';
 
 @Module({
   controllers: [GrupoController],
   providers: [GrupoService],
-  imports: [TypeOrmModule.forFeature([Grupo])],
+  imports: [TypeOrmModule.forFeature([Grupo,])],
 })
 export class GrupoModule {}

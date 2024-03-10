@@ -9,13 +9,14 @@ export class Estudiante {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @ManyToOne(()=>Persona, (persona)=>persona.estudiante)
+    @OneToOne(()=>Persona, (persona)=>persona.estudiante)
+    @JoinColumn()
     persona: Persona
 
-    @OneToOne(()=>Grupo, (grupo)=>grupo.estudiante)
-    @JoinColumn()
-    grupo: Grupo
+    @ManyToOne(()=>Grupo, (grupo)=>grupo.estudiante)
+    // @JoinColumn()
+    grupo: Grupo;
 
-    @OneToOne(()=>Acudiente, (acudiente)=>acudiente.estudiante)
+    @ManyToOne(()=>Acudiente, (acudiente)=>acudiente.estudiante)
     acudiente: Acudiente;
 }

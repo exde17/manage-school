@@ -1,6 +1,6 @@
 import { Estudiante } from "src/estudiante/entities/estudiante.entity";
 import { Persona } from "src/persona/entities/persona.entity";
-import { Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('acudiente')
 export class Acudiente {
@@ -11,7 +11,7 @@ export class Acudiente {
     @ManyToOne(()=> Persona, persona => persona.acudiente)
     persona: Persona;
 
-    @OneToOne(()=>Estudiante, estudiante => estudiante.acudiente)
-    @JoinColumn()
+    @OneToMany(()=>Estudiante, estudiante => estudiante.acudiente)
+    // @JoinColumn()
     estudiante: Estudiante
 }

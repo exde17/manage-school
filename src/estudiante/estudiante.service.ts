@@ -13,6 +13,7 @@ export class EstudianteService {
   ) {}
   async create(createEstudianteDto: CreateEstudianteDto) {
     try {
+      console.log(createEstudianteDto);
       const estudiante = this.estudianteRepository.create(createEstudianteDto);
       await this.estudianteRepository.save(estudiante);
       return{
@@ -30,8 +31,20 @@ export class EstudianteService {
 
   async findAll() {
     try {
-      return await this.estudianteRepository.find();
+      const estudiantes = await this.estudianteRepository.find(
+        {relations: ['persona', 'grupo', 'acudiente.persona']}
+      );
+const obj = estudiantes.map((estudiante) => ({
+  id: estudiante.id,
+  persona: estudiante.persona.nombre+' '+estudiante.persona.apellido,
+  grupo: estudiante.grupo.nombre,
+  acudiente: estudiante.acudiente.persona.nombre+' '+estudiante.acudiente.persona.apellido 
+}));
+
+return obj;
+      
     } catch (error) {
+      console.log(error);
       return{
         message: 'Error al obtener los estudiantes',
         error

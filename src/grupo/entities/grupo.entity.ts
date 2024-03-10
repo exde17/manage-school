@@ -31,7 +31,7 @@ export class Grupo {
     horario: Horario
 
     @OneToMany(()=>Estudiante, (estudiante)=>estudiante.grupo)
-    estudiante: Estudiante
+    estudiante: Estudiante[]
 
     @ManyToOne(()=>Jornada, (jornada)=>jornada.grupo)
     jornada: Jornada
