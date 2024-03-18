@@ -5,7 +5,7 @@ import { UpdateDocenteDto } from './dto/update-docente.dto';
 import { Auth } from 'src/user/decorator';
 import { ValidRoles } from 'src/user/interfaces';
 
-@Controller('docente')
+@Controller('docente') 
 export class DocenteController {
   constructor(private readonly docenteService: DocenteService) {}
 

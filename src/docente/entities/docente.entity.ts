@@ -6,7 +6,7 @@ import { Persona } from "src/persona/entities/persona.entity";
 import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("docente")
-export class Docente {
+export class Docente { 
 
     @PrimaryGeneratedColumn('uuid')
     id: string;

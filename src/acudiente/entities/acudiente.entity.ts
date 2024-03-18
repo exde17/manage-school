@@ -3,7 +3,7 @@ import { Persona } from "src/persona/entities/persona.entity";
 import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('acudiente')
-export class Acudiente {
+export class Acudiente { 
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
