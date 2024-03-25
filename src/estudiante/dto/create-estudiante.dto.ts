@@ -7,12 +7,12 @@ import { Persona } from "src/persona/entities/persona.entity";
 export class CreateEstudianteDto {
 
     @IsString()
-    readonly persona: Persona;
+    readonly persona: string;
 
     @IsString()
-    readonly grupo: Grupo;
+    readonly grupo: string;
 
     @IsString()
-    readonly acudiente: Acudiente
+    readonly acudiente: string
 
 }

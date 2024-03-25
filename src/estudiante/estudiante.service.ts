@@ -3,7 +3,7 @@ import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Estudiante } from './entities/estudiante.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { Docente } from 'src/docente/entities/docente.entity';
 import { Acudiente } from 'src/acudiente/entities/acudiente.entity';
 //requiero el uuid para parsera un dato
@@ -20,36 +20,44 @@ export class EstudianteService {
     private readonly acudienteRepository: Repository<Acudiente>,
   ) {}
   async create(createEstudianteDto: CreateEstudianteDto) {
-    const {persona, acudiente, grupo} = createEstudianteDto;
+    // const {persona, acudiente, grupo} = createEstudianteDto;
     try {
       const docente = await this.docenteRepository.findOne({
-        where: {persona}
+        where: {persona: {id: createEstudianteDto.persona}} 
       });
+      
       const cudiente = await this.acudienteRepository.findOne({
-        //parseo el acudiente a uuid
-        where: {persona: uuidv4(acudiente)}
+        // relations: ["persona"],
+        where: {persona: {id: createEstudianteDto.persona}},
+        
       });
+      console.log("acudiente: ", cudiente)
 
       if(docente || cudiente){
         return {
           message: 'un docente o acudiente no pueden ser estudiantes'
         }
-      }
-      console.log(createEstudianteDto);
-      const estudiante = this.estudianteRepository.create(createEstudianteDto);
+      }createEstudianteDto
+      const estudiante = this.estudianteRepository.create({
+        // id: uuidv4(),
+        persona: {id: createEstudianteDto.persona},
+        grupo: {id: createEstudianteDto.grupo},
+        acudiente: {id: createEstudianteDto.acudiente}
+      });
       await this.estudianteRepository.save(estudiante);
       return{
         message: 'Estudiante creado correctamente',
         estudiante
       }
     } catch (error) {
+      console.log(error);
       return{
-        message: 'Error al crear el estudiante',
+        message: 'Error crear el estudiante',
         error
       }
       
     }
-  }
+  }    
 
   async findAll() {
     try {
@@ -96,7 +104,12 @@ return obj;
       });
 
       if(estudiante){
-        await this.estudianteRepository.update(id, updateEstudianteDto);
+        await this.estudianteRepository.update(id, {
+          persona: {id: updateEstudianteDto.persona},
+          grupo: {id: updateEstudianteDto.grupo},
+          acudiente: {id: updateEstudianteDto.acudiente}
+        
+        });
         return{
           message: 'Estudiante actualizado correctamente',
           estudiante
