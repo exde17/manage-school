@@ -4,6 +4,7 @@ import { UpdateDocenteDto } from './dto/update-docente.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Docente } from './entities/docente.entity';
 import { Repository } from 'typeorm';
+import { Persona } from 'src/persona/entities/persona.entity';
 
 @Injectable()
 export class DocenteService {
@@ -30,7 +31,14 @@ export class DocenteService {
 
   async findAll() {
     try {
-      return await this.docenteRepository.find();
+      const result= await this.docenteRepository.find(
+        {relations: ['persona']}
+      );
+      return {
+        nombre: result.map((docente)=> docente.persona.nombre),
+        apellido: result.map((docente)=> docente.persona.apellido),
+        cedula: result.map((docente)=> docente.persona.identificacion),
+      }
     } catch (error) {
       return{
         message: 'Error al obtener los docentes',

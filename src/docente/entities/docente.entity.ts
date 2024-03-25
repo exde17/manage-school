@@ -8,7 +8,7 @@ import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedCol
 @Entity("docente")
 export class Docente { 
 
-    @PrimaryGeneratedColumn('uuid') 
+    @PrimaryGeneratedColumn('uuid')  
     id: string;
 
     @OneToOne(()=> Persona, (persona) => persona.docente)

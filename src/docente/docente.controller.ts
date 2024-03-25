@@ -12,7 +12,7 @@ export class DocenteController {
   @Post()
   @Auth(ValidRoles.admin, ValidRoles.superUser)
   async create(@Body() createDocenteDto: CreateDocenteDto) {
-    return this.docenteService.create(createDocenteDto);
+    return this.docenteService.create(createDocenteDto); 
   }
 
   @Get()
