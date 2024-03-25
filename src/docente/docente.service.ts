@@ -34,11 +34,12 @@ export class DocenteService {
       const result= await this.docenteRepository.find(
         {relations: ['persona']}
       );
-      return {
-        nombre: result.map((docente)=> docente.persona.nombre),
-        apellido: result.map((docente)=> docente.persona.apellido),
-        cedula: result.map((docente)=> docente.persona.identificacion),
-      }
+      const obj = result.map((docente) => ({
+        id: docente.id,
+        persona: docente.persona.nombre+' '+docente.persona.apellido,
+        categoria: docente.categoriaFuncionario.nombre
+      }));
+      return obj;
     } catch (error) {
       return{
         message: 'Error al obtener los docentes',
