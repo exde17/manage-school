@@ -4,15 +4,37 @@ import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Estudiante } from './entities/estudiante.entity';
 import { Repository } from 'typeorm';
+import { Docente } from 'src/docente/entities/docente.entity';
+import { Acudiente } from 'src/acudiente/entities/acudiente.entity';
+//requiero el uuid para parsera un dato
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class EstudianteService {
   constructor(
     @InjectRepository(Estudiante)
     private readonly estudianteRepository: Repository<Estudiante>,
+    @InjectRepository(Docente)
+    private readonly docenteRepository: Repository<Docente>,
+    @InjectRepository(Acudiente)
+    private readonly acudienteRepository: Repository<Acudiente>,
   ) {}
   async create(createEstudianteDto: CreateEstudianteDto) {
+    const {persona, acudiente, grupo} = createEstudianteDto;
     try {
+      const docente = await this.docenteRepository.findOne({
+        where: {persona}
+      });
+      const cudiente = await this.acudienteRepository.findOne({
+        //parseo el acudiente a uuid
+        where: {persona: uuidv4(acudiente)}
+      });
+
+      if(docente || cudiente){
+        return {
+          message: 'un docente o acudiente no pueden ser estudiantes'
+        }
+      }
       console.log(createEstudianteDto);
       const estudiante = this.estudianteRepository.create(createEstudianteDto);
       await this.estudianteRepository.save(estudiante);
