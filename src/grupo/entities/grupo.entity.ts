@@ -24,7 +24,7 @@ export class Grupo {
     })
     codigo: string;
 
-    @ManyToOne(()=>Grado, (grado)=>grado.grupo)
+    @ManyToOne(()=>Grado, (grado)=>grado.grupo) 
     grado: Grado
 
     @OneToOne(()=>Horario, (horario)=>horario.grupo)
