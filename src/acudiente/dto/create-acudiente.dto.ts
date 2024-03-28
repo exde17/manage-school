@@ -7,6 +7,6 @@ export class CreateAcudienteDto {
     @IsString()
     readonly persona: Persona;
 
-    @IsString()
-    readonly estudiante: Estudiante;
+    // @IsString()
+    // readonly estudiante: Estudiante;
 }
