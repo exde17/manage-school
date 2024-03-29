@@ -9,7 +9,7 @@ import { RelacionModeloPedagogico } from "src/relacion_modelo_pedagogico/entitie
 import { Sector } from "src/sector/entities/sector.entity";
 import { Sede } from "src/sede/entities/sede.entity";
 import { Vereda } from "src/vereda/entities/vereda.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('empresa')
 export class Empresa {
@@ -91,4 +91,18 @@ export class Empresa {
 
     @OneToOne(()=>CategoriaFuncionario, (categoriaFuncionario) => categoriaFuncionario.empresa)
     categoriaFuncionario: CategoriaFuncionario
+
+    @CreateDateColumn({
+        type: 'timestamptz',
+        default: () => 'CURRENT_TIMESTAMP',
+        name: 'created_at',
+      })
+      createAt: Date
+    
+      @UpdateDateColumn({
+        type: 'timestamptz',
+        default: () => 'CURRENT_TIMESTAMP',
+        name: 'updated_at',
+      })
+      updateAt: Date
 }
