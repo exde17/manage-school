@@ -37,7 +37,7 @@ export class Empresa {
 
     @Column('text',{
         unique: true,
-        nullable: false
+        nullable: false 
     })
     correo: string;
 
