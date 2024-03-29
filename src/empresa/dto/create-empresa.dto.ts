@@ -1,4 +1,11 @@
 import { IsEmail, IsOptional, IsString } from "class-validator";
+import { Barrio } from "src/barrio/entities/barrio.entity";
+import { Ciudad } from "src/ciudad/entities/ciudad.entity";
+import { Comuna } from "src/comuna/entities/comuna.entity";
+import { Corregimiento } from "src/corregimiento/entities/corregimiento.entity";
+import { Departamento } from "src/departamento/entities/departamento.entity";
+import { Sector } from "src/sector/entities/sector.entity";
+import { Vereda } from "src/vereda/entities/vereda.entity";
 
 export class CreateEmpresaDto {
 
@@ -25,27 +32,27 @@ export class CreateEmpresaDto {
 
     @IsString()
     @IsOptional()
-    readonly comuna?: string;
+    readonly comuna?: Comuna;
 
     @IsString()
     @IsOptional()
-    readonly sector?: string;
+    readonly sector?: Sector;
 
     @IsString()
-    readonly departamento: string;
-
-    @IsString()
-    @IsOptional()
-    readonly vereda?: string;
+    readonly departamento: Departamento;
 
     @IsString()
     @IsOptional()
-    readonly corregimiento?: string;
+    readonly vereda?: Vereda;
 
     @IsString()
     @IsOptional()
-    readonly barrio?: string;
+    readonly corregimiento?: Corregimiento;
 
     @IsString()
-    readonly ciudad: string;
+    @IsOptional()
+    readonly barrio?: Barrio;
+
+    @IsString()
+    readonly ciudad: Ciudad;
 }
