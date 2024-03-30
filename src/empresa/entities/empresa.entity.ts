@@ -1,3 +1,4 @@
+import { IsString } from "class-validator";
 import { Barrio } from "src/barrio/entities/barrio.entity";
 import { CategoriaFuncionario } from "src/categoria_funcionario/entities/categoria_funcionario.entity";
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
@@ -62,8 +63,14 @@ export class Empresa {
     @ManyToOne(() => Comuna, (comuna) => comuna.empresa)
     comuna: Comuna;
 
-    @ManyToOne(()=> Sector, (sector) => sector.empresa)
-    sector: Sector;
+    // @ManyToOne(()=> Sector, (sector) => sector.empresa)
+    // sector: Sector;
+
+    
+    @Column('text',{
+        nullable: true
+    })
+    sector: string;
 
     @ManyToOne(()=> Departamento, (departamento) => departamento.empresa)
     departamento: Departamento;

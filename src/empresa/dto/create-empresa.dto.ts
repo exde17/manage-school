@@ -36,7 +36,7 @@ export class CreateEmpresaDto {
 
     @IsString()
     @IsOptional()
-    readonly sector?: Sector;
+    readonly sector?: string;
 
     @IsString()
     readonly departamento: Departamento;

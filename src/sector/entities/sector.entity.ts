@@ -12,6 +12,6 @@ export class Sector {
     })
     name: string;
 
-    @OneToMany(()=>Empresa, (empresa) => empresa.sector)
-    empresa: Empresa[]
+    // @OneToMany(()=>Empresa, (empresa) => empresa.sector)
+    // empresa: Empresa[]
 }
