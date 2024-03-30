@@ -3,7 +3,7 @@ import { CreateBarrioDto } from './dto/create-barrio.dto';
 import { UpdateBarrioDto } from './dto/update-barrio.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Barrio } from './entities/barrio.entity';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 
 @Injectable()
 export class BarrioService {
@@ -43,8 +43,9 @@ export class BarrioService {
 
   async findOne(id: string) {
     try {
-      return await this.barrioRepository.findOne({
-        where: {id}
+      return await this.barrioRepository.find({
+        relations: ['comuna'],
+        where: {comuna: Equal(id)}
       });
     } catch (error) {
       return{
