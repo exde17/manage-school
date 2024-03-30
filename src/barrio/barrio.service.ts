@@ -44,7 +44,7 @@ export class BarrioService {
   async findOne(id: string) {
     try {
       return await this.barrioRepository.find({
-        relations: ['comuna'],
+        // relations: ['comuna'],
         where: {comuna: Equal(id)}
       });
     } catch (error) {
