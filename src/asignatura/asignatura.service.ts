@@ -40,9 +40,9 @@ export class AsignaturaService {
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     try {
-      const asignatura = this.asignaturaRepository.findOne({
+      const asignatura = await this.asignaturaRepository.findOne({
         where: { id }
       });
       if (!asignatura) {
