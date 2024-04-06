@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe } from '@nestjs/common';
 import { AreaService } from './area.service';
 import { CreateAreaDto } from './dto/create-area.dto';
 import { UpdateAreaDto } from './dto/update-area.dto';
+import { ValidRoles } from 'src/user/interfaces';
+import { Auth } from 'src/user/decorator';
 
 @Controller('area')
-export class AreaController {
+export class AreaController { 
   constructor(private readonly areaService: AreaService) {}
 
   @Post()
-  create(@Body() createAreaDto: CreateAreaDto) {
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async create(@Body() createAreaDto: CreateAreaDto) {
     return this.areaService.create(createAreaDto);
   }
 
   @Get()
-  findAll() {
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async findAll() {
     return this.areaService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.areaService.findOne(+id);
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.areaService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAreaDto: UpdateAreaDto) {
-    return this.areaService.update(+id, updateAreaDto);
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async update(@Param('id',ParseUUIDPipe) id: string, @Body() updateAreaDto: UpdateAreaDto) {
+    return this.areaService.update(id, updateAreaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.areaService.remove(+id);
+  @Auth(ValidRoles.admin, ValidRoles.user, ValidRoles.superUser)
+  async remove(@Param('id',ParseUUIDPipe) id: string) {
+    return this.areaService.remove(id);
   }
 }
