@@ -8,5 +8,6 @@ export class CreateAsignaturaDto {
     @IsString()
     codigo: string;
 
+    @IsString()
     area: Area;
 }
