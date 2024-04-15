@@ -31,7 +31,12 @@ export class PersonaService {
 
   async findAll() {
     try {
-      return await this.personaRepository.find();
+      return await this.personaRepository.find({
+        relations: {
+          departamento: true,
+          ciudad: true,
+        }
+      });
     } catch (error) {
       console.log(error);
       return {
@@ -44,6 +49,10 @@ export class PersonaService {
 
   async findOne(id: string) {
     return await this.personaRepository.findOne({
+      relations: {
+        departamento: true,
+        ciudad: true,
+      },
       where: {
         id,
       }
