@@ -1,5 +1,7 @@
 import { Optional } from "@nestjs/common";
-import { IsDate, IsEnum, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { Type } from 'class-transformer';
+import { IsDate, IsEnum, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Barrio } from "src/barrio/entities/barrio.entity";
 import { Ciudad } from "src/ciudad/entities/ciudad.entity";
 import { Comuna } from "src/comuna/entities/comuna.entity";
@@ -12,50 +14,62 @@ import { Vereda } from "src/vereda/entities/vereda.entity";
 export class CreatePersonaDto {
 
     @IsString()
-    nombre: string;
+    readonly nombre: string;
 
     @IsString()
-    apellido: string;
+    readonly apellido: string;
 
     // @IsDate()
     // fechaNacimiento: Date;
     @IsString()
-    fechaNacimiento: string;
+    readonly fechaNacimiento: string;
 
     @IsEnum(DocumentTypeEnum)
-    tipoIdentificacion: DocumentTypeEnum;
+    readonly tipoIdentificacion: DocumentTypeEnum;
 
     @IsString()
-    identificacion: string;
+    readonly identificacion: string;
 
     @IsString()
-    genero: GeneroTypeEnum;
+    readonly genero: GeneroTypeEnum;
 
     @IsString()
-    email: string;
+    readonly email: string;
 
     @IsString()
-    telefono: string;
+    readonly telefono: string;
 
     @IsString()
-    departamento: Departamento;
+    readonly departamento: Departamento;
 
     @IsString()
-    ciudad: Ciudad;
+    readonly ciudad: Ciudad;
 
-    // @IsString()
-    @Optional()
-    barrio?: Barrio;
+    // @IsOptional()
+    // @ValidateNested()
+    // @Type(() => Barrio)
+    @IsOptional()
+    @IsOptional()
+    readonly barrio?: Barrio;
 
-    // @IsString()
-    @Optional()
-    corregimiento?: Corregimiento;
+    // @IsOptional()
+    // @ValidateNested()
+    // @Type(() => Corregimiento)
+    @IsOptional()
+    @IsOptional()
+    readonly corregimiento?: Corregimiento;
 
-    // @IsString()
-    @Optional()
-    vereda?: Vereda;
+    // @IsOptional()
+    // @ValidateNested()
+    // @Type(() => Vereda)
+    @IsOptional()
+    @IsOptional()
+    readonly vereda?: Vereda;
 
-    // @IsString()
-    @Optional()
-    comuna?: Comuna;
+    // @IsOptional()
+    // @ValidateNested()
+    // @Type(() => Comuna)
+    @IsOptional()
+    @IsOptional()
+    readonly comuna?: Comuna;
 }
