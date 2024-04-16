@@ -32,7 +32,7 @@ export class DocenteService {
   async findAll() {
     try {
       const result= await this.docenteRepository.find(
-        {relations: ['persona']}
+        {relations: ['persona','persona.ciudad','persona.departamento']}
       );
       const obj = result.map((docente) => ({
         id: docente.id,
