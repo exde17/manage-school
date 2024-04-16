@@ -38,6 +38,9 @@ export class DocenteService {
         id: docente.id,
         persona: docente.persona.nombre+' '+docente.persona.apellido,
         identificacion: docente.persona.identificacion,
+        ciudad: docente.persona.ciudad.nombre,
+        departamento: docente.persona.departamento.nombre,
+        telefono: docente.persona.telefono,
       }));
       return obj;
     } catch (error) {
