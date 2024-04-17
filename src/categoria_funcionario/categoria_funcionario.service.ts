@@ -1,26 +1,91 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoriaFuncionarioDto } from './dto/create-categoria_funcionario.dto';
 import { UpdateCategoriaFuncionarioDto } from './dto/update-categoria_funcionario.dto';
+import { Docente } from 'src/docente/entities/docente.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CategoriaFuncionario } from './entities/categoria_funcionario.entity';
 
 @Injectable()
 export class CategoriaFuncionarioService {
-  create(createCategoriaFuncionarioDto: CreateCategoriaFuncionarioDto) {
-    return 'This action adds a new categoriaFuncionario';
+  constructor(
+    @InjectRepository(CategoriaFuncionario)
+    private readonly docenteRepository: Repository<CategoriaFuncionario>,
+  ) {}
+  async create(createCategoriaFuncionarioDto: CreateCategoriaFuncionarioDto) {
+    try {
+      const docente = this.docenteRepository.create(createCategoriaFuncionarioDto);
+      await this.docenteRepository.save(docente);
+      return{
+        message: 'Docente creado correctamente',
+        docente
+      }
+    } catch (error) {
+      return{
+        message: 'Error al crear el docente',
+        error
+      }
+      
+    }
+    
   }
 
-  findAll() {
-    return `This action returns all categoriaFuncionario`;
+  async findAll() {
+    try {
+      return await this.docenteRepository.find();
+    } catch (error) {
+      return{
+        message: 'Error al obtener los docentes',
+        error
+      }
+      
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categoriaFuncionario`;
+  async findOne(id: string) {
+    try {
+      return await this.docenteRepository.findOne({
+        where: {id}
+      });
+    } catch (error) {
+      return{
+        message: 'Error al obtener el docente',
+        error
+      }
+      
+    }
   }
 
-  update(id: number, updateCategoriaFuncionarioDto: UpdateCategoriaFuncionarioDto) {
-    return `This action updates a #${id} categoriaFuncionario`;
+  async update(id: string, updateCategoriaFuncionarioDto: UpdateCategoriaFuncionarioDto) {
+    try {
+      const docente = await this.docenteRepository.preload({
+        id: id,
+        ...updateCategoriaFuncionarioDto
+      });
+      await this.docenteRepository.save(docente);
+      return {
+        message: 'Docente actualizado correctamente',
+        docente
+      
+      }
+    } catch (error) {
+      return{
+        message: 'Error al actualizar el docente',
+        error
+      }
+      
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} categoriaFuncionario`;
+  async remove(id: string) {
+    try {
+      return await this.docenteRepository.delete(id);
+    } catch (error) {
+      return{
+        message: 'Error al eliminar el docente',
+        error
+      }
+      
+    }
   }
 }
