@@ -60,7 +60,7 @@ export class DocenteService {
   async findOne(id: string) {
     try {
       return await this.docenteRepository.findOne({
-        relations: ['persona','persona.ciudad','persona.departamento'],
+        relations: ['persona','persona.ciudad','persona.departamento','categoriaFuncionario'],
         where: {id}
       });
     } catch (error) {
