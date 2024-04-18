@@ -36,7 +36,7 @@ export class DocenteService {
       );
       const obj = result.map((docente) => ({
         id: docente.id,
-        persona: docente.persona.nombre+' '+docente.persona.apellido,
+        persona: docente,//docente.persona.nombre+' '+docente.persona.apellido,
         identificacion: docente.persona.identificacion,
         ciudad: docente.persona.ciudad.nombre,
         departamento: docente.persona.departamento.nombre,
