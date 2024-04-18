@@ -30,7 +30,23 @@ export class AcudienteService {
 
   async findAll() {
     try {
-      return await this.acudienteRepository.find();
+      const result= await this.acudienteRepository.find({
+        relations: ['persona', 'persona.ciudad', 'persona.departamento']
+      });
+      const obj = result.map((acudiente) => ({
+        id: acudiente.id,
+        idPersona: acudiente.persona.id,
+        nombre: acudiente.persona.nombre+' '+acudiente.persona.apellido,
+        fechaNacimiento: acudiente.persona.fechaNacimiento,
+        tipoIdentificacion: acudiente.persona.tipoIdentificacion,
+        identificacion: acudiente.persona.identificacion,
+        genero: acudiente.persona.genero,
+        email: acudiente.persona.email,
+        telefono: acudiente.persona.telefono,
+        ciudad: acudiente.persona.ciudad.nombre,
+        departamento: acudiente.persona.departamento.nombre,
+      }));
+      return obj;
     } catch (error) {
       return {
         message: 'Error al obtener los acudientes',
@@ -42,9 +58,25 @@ export class AcudienteService {
 
   async findOne(id: string) {
     try {
-      return await this.acudienteRepository.findOne(
-        { where: { id } }
+      const bac= await this.acudienteRepository.findOne(
+        { relations: ['persona', 'persona.ciudad', 'persona.departamento'],where: { id } }
       );
+      return bac;
+
+      // const obj = {
+      //   id: acudiente.id,
+      //   idPersona: acudiente.persona.id,
+      //   nombre: acudiente.persona.nombre+' '+acudiente.persona.apellido,
+      //   fechaNacimiento: acudiente.persona.fechaNacimiento,
+      //   tipoIdentificacion: acudiente.persona.tipoIdentificacion,
+      //   identificacion: acudiente.persona.identificacion,
+      //   genero: acudiente.persona.genero,
+      //   email: acudiente.persona.email,
+      //   telefono: acudiente.persona.telefono,
+      //   ciudad: acudiente.persona.ciudad.nombre,
+      //   departamento: acudiente.persona.departamento.nombre,
+      // };
+      // return obj;
     } catch (error) {
       return {
         message: 'Error al obtener el acudiente',
