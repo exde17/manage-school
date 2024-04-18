@@ -32,7 +32,11 @@ export class CiudadService {
 
   async findAll() {
     try {
-      return await this.ciudadRepository.find();
+      return await this.ciudadRepository.find({
+        relations: ['departamento']
+      });
+
+      
     } catch (error) {
       console.log(error);
       return {
@@ -46,6 +50,7 @@ export class CiudadService {
   findOne(id: string) {
     try {
       const result = this.ciudadRepository.findOne({
+        relations: ['departamento'],
         where: {
           id
         }});
