@@ -36,11 +36,16 @@ export class DocenteService {
       );
       const obj = result.map((docente) => ({
         id: docente.id,
-        persona: docente,//docente.persona.nombre+' '+docente.persona.apellido,
+        idPersona: docente.persona.id,
+        nombre: docente.persona.nombre+' '+docente.persona.apellido,
+        fechaNacimiento: docente.persona.fechaNacimiento,
+        tipoIdentificacion: docente.persona.tipoIdentificacion,
         identificacion: docente.persona.identificacion,
+        genero: docente.persona.genero,
+        email: docente.persona.email,
+        telefono: docente.persona.telefono,
         ciudad: docente.persona.ciudad.nombre,
         departamento: docente.persona.departamento.nombre,
-        telefono: docente.persona.telefono,
       }));
       return obj;
     } catch (error) {
