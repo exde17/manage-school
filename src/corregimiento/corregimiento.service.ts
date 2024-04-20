@@ -27,7 +27,9 @@ export class CorregimientoService {
 
   findAll() {
     try {
-      return this.corregimientoRepository.find();
+      return this.corregimientoRepository.find({
+        relations: ['ciudad']
+      });
     } catch (error) {
       return{
         message: 'error getting corregimientos'
@@ -38,6 +40,7 @@ export class CorregimientoService {
   findOne(id: string) {
     try {
       return this.corregimientoRepository.findOne({
+        relations: ['ciudad'],
         where: {
           id
         }

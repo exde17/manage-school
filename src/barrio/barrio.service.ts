@@ -30,7 +30,9 @@ export class BarrioService {
 
   async findAll() {
     try {
-      return await this.barrioRepository.find();
+      return await this.barrioRepository.find({
+        relations: ['comuna']
+      });
     } catch (error) {
       return{
         message: 'Error al obtener los barrios',
@@ -44,7 +46,7 @@ export class BarrioService {
   async findOne(id: string) {
     try {
       return await this.barrioRepository.find({
-        // relations: ['comuna'],
+        relations: ['comuna'],
         where: {comuna: Equal(id)}
       });
     } catch (error) {

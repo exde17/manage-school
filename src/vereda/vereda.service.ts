@@ -30,7 +30,9 @@ export class VeredaService {
 
   async findAll() {
     try {
-      return await this.veredaRepository.find();
+      return await this.veredaRepository.find({
+        relations: ['corregimiento'],
+      });
     } catch (error) {
       return {
         message: 'Error al obtener las veredas',
@@ -42,6 +44,7 @@ export class VeredaService {
   async findOne(id: string) {
     try {
       return await this.veredaRepository.findOne({
+        relations: ['corregimiento'],
         where: { id },
       });
     } catch (error) {

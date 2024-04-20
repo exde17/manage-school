@@ -32,7 +32,9 @@ export class ComunaService {
 
   async findAll() {
     try {
-      return this.comunaRepository.find();
+      return this.comunaRepository.find({
+        relations: ['ciudad']
+      });
     } catch (error) {
       return {
         message: 'Error al obtener comunas',
@@ -45,6 +47,7 @@ export class ComunaService {
   async findOne(id: string) {
     try {
       return await this.comunaRepository.findOne({
+        relations: ['ciudad'],
         where: { id },
       });
     } catch (error) {
